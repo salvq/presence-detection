@@ -62,7 +62,7 @@ Scanning ...
 
 Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses.
 
-Note: Make sure your MAC address is not randomize as this presence detection check rely on fixed MAC address.
+Note: Make sure your MAC address is not randomize as this presence detection check rely on fixed MAC address. And every name must be unique i.e. do not use 2 same names as this would break the logic of topic vs. sensor states.
 
 Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located in the same files as `docker-compose.yaml`
 
@@ -115,14 +115,14 @@ services:
 | USER         | REQUIRED    | NONE    | MQTT broker user authetification, example USER=name                       |
 | PASSWORD     | REQUIRED    | NONE    | MQTT broker password authetification, PASSWORD=secret                       |
 | LOCATION     | REQUIRED    | NONE    | Location of device running this docker like bedroom, example LOCATION=bedroom |
-| CLEANSESSION | OPTIONAL    | FALSE   | MQTT advance settings, possible value FALSE or TRUE, default value FALSE                       |
-| WILLQOS      | OPTIONAL    | 1       | Last Will and Testament QOS (possible value 0, 1 or 2), default value 1                       |
-| WILLRETAIN   | OPTIONAL    | TRUE    | Last Will and Testament retain message (possible FALSE or TRUE), default value TRUE                       |
-| MSGQOS       | OPTIONAL    | 1       | Publish message QOS (possible value 0, 1 or 2), default value 1                       |
-| MSGRETAIN    | OPTIONAL    | TRUE    | Publish retain message (possible FALSE or TRUE), default value TRUE                       |
-| TIMEOUTSCAN  | OPTIONAL    | 2       | Bluetooth timeout scanning in seconds (detect device as off after this time), default value 2  |
-| SLEEPBETWEEN | OPTIONAL    | 5       | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence), default value 5                       |
-| LOGGING      | OPTIONAL    | INFO    | When it is needed to increase verbose and debug (possible value INFO or DEBUG), default value is INFO |
+| CLEANSESSION | OPTIONAL    | FALSE   | MQTT advance settings, possible value FALSE or TRUE                       |
+| WILLQOS      | OPTIONAL    | 1       | Last Will and Testament QOS (possible value 0, 1 or 2)                       |
+| WILLRETAIN   | OPTIONAL    | TRUE    | Last Will and Testament retain message (possible FALSE or TRUE)                       |
+| MSGQOS       | OPTIONAL    | 1       | Publish message QOS (possible value 0, 1 or 2)                       |
+| MSGRETAIN    | OPTIONAL    | TRUE    | Publish retain message (possible FALSE or TRUE)                       |
+| TIMEOUTSCAN  | OPTIONAL    | 2       | Bluetooth timeout scanning in seconds (detect device as off after this time)  |
+| SLEEPBETWEEN | OPTIONAL    | 5       | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence)                       |
+| LOGGING      | OPTIONAL    | INFO    | When it is needed to increase verbose and debug (possible value INFO or DEBUG) |
 
 
 ## Usage
