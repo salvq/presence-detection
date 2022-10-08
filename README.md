@@ -114,7 +114,7 @@ services:
 | PORT         | REQUIRED              | MQTT broker PORT, example PORT=1883                       |
 | USER         | REQUIRED              | MQTT broker user authetification, example USER=name                       |
 | PASSWORD     | REQUIRED              | MQTT broker password authetification, PASSWORD=secret                       |
-| LOCATION     | REQUIRED              | Location of device like bedroom, example LOCATION=bedroom |
+| LOCATION     | REQUIRED              | Location of device like bedroom (can not have 2 devices with same location, for two devices use LOCATION=bedroom and LOCATION=bedroom2 |
 | CLEANSESSION | OPTIONAL              | MQTT advance settings, possible value FALSE or TRUE, default value FALSE                       |
 | WILLQOS      | OPTIONAL              | Last Will and Testament QOS (possible value 0, 1 or 2), default value 1                       |
 | WILLRETAIN   | OPTIONAL              | Last Will and Testament retain message (possible FALSE or TRUE), default value TRUE                       |
