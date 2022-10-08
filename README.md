@@ -108,21 +108,21 @@ services:
 
 ## Container Configuration
 
-| Name         | Enviromental variable | Description                                                                      |
-| ------------ | ----------------------|--------------------------------------------------------------------------------- |
-| HOST         | REQUIRED              | MQTT broker IP address, example HOST=192.168.89.56                       |
-| PORT         | REQUIRED              | MQTT broker PORT, example PORT=1883                       |
-| USER         | REQUIRED              | MQTT broker user authetification, example USER=name                       |
-| PASSWORD     | REQUIRED              | MQTT broker password authetification, PASSWORD=secret                       |
-| LOCATION     | REQUIRED              | Location of device like bedroom (can not have 2 devices with same location, for two devices use LOCATION=bedroom and LOCATION=bedroom2 |
-| CLEANSESSION | OPTIONAL              | MQTT advance settings, possible value FALSE or TRUE, default value FALSE                       |
-| WILLQOS      | OPTIONAL              | Last Will and Testament QOS (possible value 0, 1 or 2), default value 1                       |
-| WILLRETAIN   | OPTIONAL              | Last Will and Testament retain message (possible FALSE or TRUE), default value TRUE                       |
-| MSGQOS       | OPTIONAL              | Publish message QOS (possible value 0, 1 or 2), default value 1                       |
-| MSGRETAIN    | OPTIONAL              | Publish retain message (possible FALSE or TRUE), default value TRUE                       |
-| TIMEOUTSCAN  | OPTIONAL              | Bluetooth timeout scanning in seconds (detect device as off after this time), default value 2  |
-| SLEEPBETWEEN | OPTIONAL              | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence), default value 5                       |
-| LOGGING      | OPTIONAL              | When it is needed to increase verbose and debug (possible value INFO or DEBUG), default value is INFO |
+| Name         | Environment | Default | Description                                                                      |
+| ------------ | ----------- | ------- | -------------------------------------------------------------------------------- |
+| HOST         | REQUIRED    | NONE    | MQTT broker IP address, example HOST=192.168.89.56                       |
+| PORT         | REQUIRED    | NONE    | MQTT broker PORT, example PORT=1883                       |
+| USER         | REQUIRED    | NONE    | MQTT broker user authetification, example USER=name                       |
+| PASSWORD     | REQUIRED    | NONE    | MQTT broker password authetification, PASSWORD=secret                       |
+| LOCATION     | REQUIRED    | NONE    | Location of device running this docker like bedroom, example LOCATION=bedroom |
+| CLEANSESSION | OPTIONAL    | FALSE   | MQTT advance settings, possible value FALSE or TRUE, default value FALSE                       |
+| WILLQOS      | OPTIONAL    | 1       | Last Will and Testament QOS (possible value 0, 1 or 2), default value 1                       |
+| WILLRETAIN   | OPTIONAL    | TRUE    | Last Will and Testament retain message (possible FALSE or TRUE), default value TRUE                       |
+| MSGQOS       | OPTIONAL    | 1       | Publish message QOS (possible value 0, 1 or 2), default value 1                       |
+| MSGRETAIN    | OPTIONAL    | TRUE    | Publish retain message (possible FALSE or TRUE), default value TRUE                       |
+| TIMEOUTSCAN  | OPTIONAL    | 2       | Bluetooth timeout scanning in seconds (detect device as off after this time), default value 2  |
+| SLEEPBETWEEN | OPTIONAL    | 5       | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence), default value 5                       |
+| LOGGING      | OPTIONAL    | INFO    | When it is needed to increase verbose and debug (possible value INFO or DEBUG), default value is INFO |
 
 
 ## Usage
