@@ -1,0 +1,12 @@
+{
+  "devices": [
+    {
+      "name": "Name 1",
+      "mac": "AB:CD:34:62:BA:12"
+    },
+    {
+      "name": "Name 2",
+      "mac": "BA:DC:43:26:AB:21"
+    }
+  ]
+}   
