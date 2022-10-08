@@ -16,7 +16,7 @@ Write down your MAC address from your Android or iPhone and create as many recor
 
 Note: Make sure your MAC address is not randomize as this presence detection check rely on fixed MAC address.
 
-Edit database.json file and update as many records as desired, file must be located in the same files as docker-compose.yaml
+Edit `database.json` file and add as many records as desired but must follow JSON content structure, file must be located in the same files as `docker-compose.yaml`
 
 ```
 {
@@ -42,13 +42,44 @@ Edit database.json file and update as many records as desired, file must be loca
 | USER         | REQUIRED              | MQTT broker user authetification, example USER=name                       |
 | PASSWORD     | REQUIRED              | MQTT broker password authetification, PASSWORD=secret                       |
 | LOCATION     | REQUIRED              | Location of device like bedroom, example LOCATION=bedroom |
-| CLEANSESSION | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| WILLQOS      | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| WILLRETAIN   | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| MSGQOS       | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| MSGRETAIN    | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| MSGQOS       | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| TIMEOUTSCAN  | OPTIONAL              | MQTT advance settings, default value FALSE                       |
-| SLEEPBETWEEN | OPTIONAL              | MQTT advance settings, default value FALSE                       |
+| CLEANSESSION | OPTIONAL              | MQTT advance settings, possible value FALSE or TRUE, default value FALSE                       |
+| WILLQOS      | OPTIONAL              | Last Will and Testament QOS (possible value 0, 1 or 2), default value 1                       |
+| WILLRETAIN   | OPTIONAL              | Last Will and Testament retain message (possible FALSE or TRUE), default value TRUE                       |
+| MSGQOS       | OPTIONAL              | Publish message QOS (possible value 0, 1 or 2), default value 1                       |
+| MSGRETAIN    | OPTIONAL              | Publish retain message (possible FALSE or TRUE), default value TRUE                       |
+| TIMEOUTSCAN  | OPTIONAL              | Bluetooth timeout scanning in seconds (detect device as off after this time), default value 2  |
+| SLEEPBETWEEN | OPTIONAL              | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence), default value 5                       |
+| LOGGING      | OPTIONAL              | When it is needed to increase verbose and debug (possible value INFO or DEBUG), default value is INFO |
 
-If the `BEGIN` command is set, then the `INTERVAL` will be set to 1440 (one day) automatically. If you want to override this then set `INTERVAL` to the delay you want (you can also set it to `0` to exit immediately).
+## Docker start-up
+
+Run command `[~] # docker-compose up -d` in shell where are located files `database.json` and `docker-compose.yaml`
+
+```
+version: '3'
+
+services:
+  test:
+    image: salvq/presence:1.1.0
+    container_name: presence
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    environment:
+      - HOST=192.168.78.156
+      - PORT=1883
+      - USER=ABC
+      - PASSWORD=EFG
+      - LOCATION=bedroom
+    volumes:
+      - ./database.json:/presence/database.json
+      - /etc/localtime:/etc/localtime:ro
+```
+
+## Usage
+
+TBA
+
+## Integration with Home Assistant
+
+TBA
