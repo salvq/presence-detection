@@ -87,7 +87,7 @@ def on_connect(client, userdata, flags, rc):
             unique_id = name["name"] + '_' + hex_mac_address
             sensor_name = name["name"] + ' ' + location
             state_topic = 'presence/'+location+'/'+name["name"]
-            config_topic = 'homeassistant/device_tracker/'+name["name"]+'/presence/config'
+            config_topic = 'homeassistant/device_tracker/'+name["name"]+'/'+location+'/config'
             print(state_topic)
             print(config_topic)
             data_set = {
