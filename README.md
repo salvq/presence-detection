@@ -90,7 +90,7 @@ version: '3'
 
 services:
   test:
-    image: salvq/presence:1.1.0
+    image: salvq/presence:1.2.0
     container_name: presence
     restart: unless-stopped
     network_mode: host
