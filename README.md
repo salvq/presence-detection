@@ -30,10 +30,10 @@ pi@raspberrypi:~ $ sudo docker version
 
 c. Enable docker when system bootup
 ```
-d. sudo systemctl enable docker
+pi@raspberrypi:~ $ sudo systemctl enable docker
 ```
 
-e. Install Docker compose
+d. Install Docker compose
 ```
 pi@raspberrypi:~ $ sudo apt-get install libffi-dev libssl-dev
 pi@raspberrypi:~ $ sudo apt install python3-dev
@@ -64,7 +64,7 @@ Write down your MAC address from your Android or iPhone and create as many recor
 
 Note: Make sure your MAC address is not randomize as this presence detection check rely on fixed MAC address.
 
-Edit `database.json` file and add as many records as desired but must follow JSON content structure, file must be located in the same files as `docker-compose.yaml`
+Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located in the same files as `docker-compose.yaml`
 
 ```
 {
