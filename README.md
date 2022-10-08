@@ -90,7 +90,7 @@ version: '3'
 
 services:
   test:
-    image: salvq/presence:1.2.0
+    image: salvq/presence:1.4.0
     container_name: presence
     restart: unless-stopped
     network_mode: host
@@ -100,7 +100,7 @@ services:
       - PORT=1883
       - USER=ABC
       - PASSWORD=EFG
-      - LOCATION=bedroom
+      - LOCATION=hall
     volumes:
       - ./database.json:/presence/database.json
       - /etc/localtime:/etc/localtime:ro
