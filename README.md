@@ -10,7 +10,7 @@ Note: Using Home Assistant is not must but very recommended as it provides easy 
 
 ## Supported Platforms
 
-* linux/arm
+* linux/arm/v5
 
 ## Prerequisites
 
@@ -151,7 +151,7 @@ version: '3'
 
 services:
   test:
-    image: salvq/presence:1.5.0
+    image: salvq/presence:2.0.0
     container_name: presence
     restart: unless-stopped
     network_mode: host
