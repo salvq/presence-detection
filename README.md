@@ -43,7 +43,7 @@ pi@raspberrypi:~ $ sudo pip3 install docker-compose
 
 **2. Bluetooth adapter**
 
-Test whether your device has bluetooth enabled and can discover near by devices, try execute following codes. If you found similar results as below, you are ready from Hardware and driver perspective.
+Test whether your device has bluetooth enabled and can discover near by devices, try execute below commands. If you found similar results as below, you are ready from hardware and driver perspective, otherwise need to troubleshoot before continue. This docker relies on working Bluetooth hardware and software.
 
 ```
 $ hciconfig
