@@ -122,11 +122,11 @@ Content of `database.json` file is following:
 {
   "devices": [
     {
-      "name": "Name 1",
+      "name": "Name1",
       "mac": "AB:CD:34:62:BA:12"
     },
     {
-      "name": "Name 2",
+      "name": "Name2",
       "mac": "BA:DC:43:26:AB:21"
     }
   ]
@@ -188,7 +188,39 @@ services:
 
 ## Usage
 
-TBA
+Following topics are used:
+
+| Topic           | Description     |
+| --------- | ------------------------------------------------------------------------------------------------------- |
+| Config    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see  |
+| Will      | It can be utilize to get status of device, whter is only or offline                       |
+| Subscribe | Topic which device subscribe to, when the device get an message with paylod 'on', thi is scanning trigger                     |
+| State     | Device provide in this topic results of scanning routine                 |
+
+Here are the example of topics with possible payloads:
+
+**Config topic triggers creating of sensor & device in Home Assistant**
+```
+homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config
+```
+
+**Will topic provides status whether the program is online or offline
+**
+```
+presence/0xb342eb36ca0c/hall/lwt online
+presence/0xb342eb36ca0c/hall/lwt offline
+```
+
+**Subscribe topic triggers the bluetooth scanning**
+```
+presence/0xb342eb36ca0c/hall/set on
+```
+
+**State topic provides results after being triggered**
+```
+presence/0xb342eb36ca0c/hall/Name 1 on
+presence/0xb342eb36ca0c/hall/Name 1 off
+```
 
 ## Integration with Home Assistant
 
