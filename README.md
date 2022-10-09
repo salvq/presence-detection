@@ -14,7 +14,36 @@ Note: Using Home Assistant is not must but very recommended as it provides easy 
 
 ## Prerequisites
 
-**1. Docker readiness:**
+**1. Prepare Raspberry PI:**
+
+a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
+
+b. Create user file as specified by http://rptl.io/newuser
+
+c. Make neccessary settings via `pi@raspberrypi:~ $ sudo raspi-config`
+```
+1 - System Options -> S4 Hostname -> change as needed
+5 - Localisation Option -> L2 Timezone -> change as needed
+```
+
+d. In case you want to disable wi-fi (like myself, I am using eth adapter to limit interferance wi-fi vs. bluetooth):
+
+```
+sudo nano /boot/config.txt
+```
+
+Add below to section `[all]`
+```
+[all]
+dtoverlay=disable-wifi
+```
+
+Reboot the Pi
+```
+sudo reboot
+```
+
+**2. Docker readiness:**
 
 a. Install Docker
 ```
@@ -38,10 +67,11 @@ d. Install Docker compose
 pi@raspberrypi:~ $ sudo apt-get install libffi-dev libssl-dev
 pi@raspberrypi:~ $ sudo apt install python3-dev
 pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
+pi@raspberrypi:~ $ sudo apt-get install -y python3-bcrypt
 pi@raspberrypi:~ $ sudo pip3 install docker-compose
 ```
 
-**2. Bluetooth adapter**
+**3. Bluetooth adapter**
 
 Test whether your device has bluetooth enabled and can discover near by devices, try execute below commands. If you found similar results as below, you are ready from hardware and driver perspective, otherwise need to troubleshoot before continue. This docker relies on working Bluetooth hardware and software.
 
@@ -61,7 +91,24 @@ LE Scan ...
 $
 ```
 
-**3. Bluetooth MAC addresses**
+**4. Download repository to your PI**
+
+a. Create folder in your home folder
+```
+pi@raspberrypi:~ $ mkdir presence
+pi@raspberrypi:~ $ cd presence
+pi@raspberrypi:~ $ pwd
+/home/pi/presence
+```
+
+b. Download repository
+```
+pi@raspberrypi:~ $ sudo apt update
+pi@raspberrypi:~ $ sudo apt install git
+pi@raspberrypi:~ $ git clone https://github.com/salvq/presence-detection.git
+```
+
+**5. Bluetooth MAC addresses**
 
 Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses.
 
@@ -88,7 +135,14 @@ Content of `database.json` file is following:
 
 ## Docker start-up
 
-Run command `pi@raspberrypi:~ $ docker-compose up -d` in shell where are located files `database.json` and `docker-compose.yaml`
+Navigate to folder with downloaded repository
+```
+pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
+```
+Run command to start the docker instance, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
+```
+pi@raspberrypi:~ $ docker-compose up -d
+```
 
 Content of `docker-compose.yaml` file is following:
 
