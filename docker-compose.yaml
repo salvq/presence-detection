@@ -2,7 +2,7 @@ version: '3'
 
 services:
   test:
-    image: salvq/presence:1.4.0
+    image: salvq/presence:1.5.0
     container_name: presence
     restart: unless-stopped
     network_mode: host
