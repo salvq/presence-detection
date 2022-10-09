@@ -192,7 +192,7 @@ Following topics are used:
 
 | Topic           | Description     |
 | --------- | ------------------------------------------------------------------------------------------------------- |
-| Config    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see  |
+| Config    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
 | Will      | It can be utilize to get status of device, whter is only or offline                       |
 | Subscribe | Topic which device subscribe to, when the device get an message with paylod 'on', thi is scanning trigger                     |
 | State     | Device provide in this topic results of scanning routine                 |
