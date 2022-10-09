@@ -53,9 +53,12 @@ hci0:   Type: Primary  Bus: UART
         RX bytes:3794 acl:0 sco:0 events:124 errors:0
         TX bytes:2722 acl:0 sco:0 commands:108 errors:0
 
-$ hcitool -i hci0 scan
-Scanning ...
-	FC:XX:XX:XX:XX:FE	n/a
+$ sudo hcitool lescan
+LE Scan ...
+21:7C:5B:BA:BB:01 (unknown)
+59:7C:5B:BA:BC:01 (unknown)
+22:35:1A:C8:31:C5 (unknown)
+$
 ```
 
 **3. Bluetooth MAC addresses**
