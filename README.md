@@ -194,7 +194,7 @@ Following topics are used:
 | --------- | ------------------------------------------------------------------------------------------------------- |
 | Config    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
 | Will      | It can be utilize to get status of device, whter is only or offline                       |
-| Subscribe | Topic which device subscribe to, when the device get an message with paylod 'on', thi is scanning trigger                     |
+| Subscribe | Topic which device subscribe to, when the device get an message with paylod 'on' i.e. this is scanning trigger                     |
 | State     | Device provide in this topic results of scanning routine                 |
 
 Here are the example of topics with possible payloads:
@@ -204,8 +204,7 @@ Here are the example of topics with possible payloads:
 homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config
 ```
 
-**Will topic provides status whether the program is online or offline
-**
+**Will topic provides status whether the program is online or offline**
 ```
 presence/0xb342eb36ca0c/hall/lwt online
 presence/0xb342eb36ca0c/hall/lwt offline
