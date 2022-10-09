@@ -1,8 +1,8 @@
 # Presence detection
 
-This is a container/program for detecting Bluetooth device without need of pairing. It is usually used to detect the mobile phone and consider person carrying this device is near by.
+This is a container/program for detecting Bluetooth device without need of pairing it. It is usually used to detect the mobile phone and consider person carrying this device as near by.
 
-I found the best device to run the docker on Raspberry PI (any model is fine). Of course, this docker can work on many other devices (even device which runs CoreELEC like Odroid and others), just it is necessary to have a bluetooth adpter or built in driver installed and worked.
+I found the best device to run the docker on Raspberry PI (from Zero up to PI4). Of course, this docker can work on many other devices (even device which runs Linux like CoreELEC on Odroid and others), just it is necessary to have a bluetooth adapter (internal or USB one) and working driver installed.
 
 This container utilize Bluetooth classic to detect the device i.e. Phone via MAC address. Indeed, primary reason is to detect person inside/outside the house to trigger further actions such as check for windows open/close status, switch off/on the lights, sockets etc. anything you imagine. This docker utilize MQTT protocol and Home Assistant MQTT Discovery protocol for plug & play integration, link https://www.home-assistant.io/docs/mqtt/discovery/
 
