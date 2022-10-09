@@ -66,6 +66,8 @@ Note: Make sure your MAC address is not randomize as this presence detection che
 
 Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located in the same files as `docker-compose.yaml`
 
+Content of `database.json` file is following:
+
 ```
 {
   "devices": [
@@ -84,6 +86,8 @@ Edit `database.json` file and add as many records as needed in devices section b
 ## Docker start-up
 
 Run command `pi@raspberrypi:~ $ docker-compose up -d` in shell where are located files `database.json` and `docker-compose.yaml`
+
+Content of `docker-compose.yaml` file is following:
 
 ```
 version: '3'
