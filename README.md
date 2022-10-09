@@ -83,7 +83,7 @@ Edit `database.json` file and add as many records as needed in devices section b
 
 ## Docker start-up
 
-Run command `[~] # docker-compose up -d` in shell where are located files `database.json` and `docker-compose.yaml`
+Run command `pi@raspberrypi:~ $ docker-compose up -d` in shell where are located files `database.json` and `docker-compose.yaml`
 
 ```
 version: '3'
