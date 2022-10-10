@@ -190,7 +190,9 @@ pi@raspberrypi:~ $ docker-compose up -d
 
 **a. Create template sensor which will be updated based on all the locations.**
 
-Example below describes 3 devices in total, one in bedroom, second one in hall and 3rd one is kidsroom. If there is at least phone detected in either one of the room, sensor turns to `Home`, if all the 3 devices provides results as off sensor turns to `Away`. If the programs are shut down or not available (program is not running), sensor turns to `Unknown`
+Example below describes 3 devices in total, one in bedroom, second one in hall and 3rd one is kidsroom. If there is at least phone detected in either one of the rooms, sensor turns to `Home`, if all the 3 devices provides results as off sensor turns to `Away`. If the programs are shut down or not available (program is not running), sensor turns to `Unknown`. 
+
+Note: name1 in the sensors below has to be renamed to the one from your database.json file.
 
 ```
 # Example configuration entry
@@ -211,6 +213,8 @@ template:
 **b. create automation which triggers the scanning**
 
 Example below provides example of configuration for automation which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute to trigger the scanning by sending the payload `on` to all the 3 devices.
+
+Note: triggers ensors have to be updated based on your configuration. The mqtt topics can be detected by listenning the general topic `presence/#` or by reading the docker log.
 
 ```
 automation:
