@@ -196,18 +196,18 @@ TBA
 
 **To trigger the scanning, type in**
 
-`pi@rpi4-tv:~ $ sudo mosquitto_pub -h 192.168.78.156 -u ABC -P EFG -t presence/0xb342eb36ca0c/hall/set -m 'on'`
+`pi@raspberrypi:~ $ sudo mosquitto_pub -h 192.168.78.156 -u ABC -P EFG -t presence/0xb342eb36ca0c/hall/set -m 'on'`
 
 
 **To listen to PI device, just type in:**
 
 a. for CONFIG topic
 
-`pi@rpi4-tv:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t homeassistant/# -v`
+`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t homeassistant/# -v`
 
 b. for WILL and/or STATE topic:
 
-`pi@rpi4-tv:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t presence/# -v`
+`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t presence/# -v`
 
 
 **Topic explanation:**
