@@ -190,12 +190,12 @@ services:
 
 Following topics are used:
 
-| Topic           | Description     |
+| Topic     | Description     |
 | --------- | ------------------------------------------------------------------------------------------------------- |
-| Config    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
-| Will      | It can be utilize to get status of device, whter is only or offline                       |
-| Subscribe | Topic which PI device subscribe to, this triggers scanning when the device get an message with paylod 'on'               |
-| State     | Device provide results of scanning routinein this topic                 |
+| CONFIG    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
+| WILL      | It can be utilize to get status of device, whter is only or offline                       |
+| SUBSCRIBE | Topic which PI device subscribe to, this triggers scanning when the device get an message with paylod 'on'               |
+| STATE     | Device provide results of scanning routinein this topic                 |
 
 Here are the example of topics with possible payloads:
 
