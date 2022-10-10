@@ -186,7 +186,13 @@ Run command to start the docker instance, it must be in folder where both update
 pi@raspberrypi:~ $ docker-compose up -d
 ```
 
-## Usage
+## Home Assistant integration (recommended)
+
+TBA
+
+
+
+## General usage
 
 **To trigger the scanning, type in**
 
@@ -228,8 +234,3 @@ b. for WILL and/or STATE topic:
 `presence/0xb342eb36ca0c/hall/Name1`
 - where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
 
-
-
-## Integration with Home Assistant
-
-TBA
