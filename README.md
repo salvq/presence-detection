@@ -90,7 +90,8 @@ LE Scan ...
 $
 ```
 
-**4. Download repository to your PI**
+## Download this repository to your PI
+
 
 a. Create folder in your home folder
 ```
@@ -107,7 +108,7 @@ pi@raspberrypi:~ $ sudo apt install git
 pi@raspberrypi:~ $ git clone https://github.com/salvq/presence-detection.git
 ```
 
-**5. Bluetooth MAC addresses**
+## Update MAC address of your Phones or other devices
 
 Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses.
 
@@ -132,19 +133,9 @@ Content of `database.json` file is following:
 }       
 ```
 
-## Docker start-up
+## Update Container configuration
 
-Navigate to folder with downloaded repository
-```
-pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
-```
-Run command to start the docker instance, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
-```
-pi@raspberrypi:~ $ docker-compose up -d
-```
-
-Content of `docker-compose.yaml` file is following:
-
+Edit and update `docker-compose.yaml` file based on your needs. Minimal config of docker-compose.yaml file is following:
 ```
 version: '3'
 
@@ -166,8 +157,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
 ```
 
-## Container Configuration
-
 | Name         | Environment | Default | Description                                                                      |
 | ------------ | ----------- | ------- | -------------------------------------------------------------------------------- |
 | HOST         | REQUIRED    | NONE    | MQTT broker IP address, example HOST=192.168.89.56                       |
@@ -185,9 +174,37 @@ services:
 | LOGGING      | OPTIONAL    | INFO    | When it is needed to increase verbose and debug (possible value INFO or DEBUG) |
 
 
+
+## Docker start-up
+
+Navigate to folder with downloaded repository
+```
+pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
+```
+Run command to start the docker instance, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
+```
+pi@raspberrypi:~ $ docker-compose up -d
+```
+
 ## Usage
 
-Following topics are used:
+**To trigger the scanning, type in**
+
+`pi@rpi4-tv:~ $ sudo mosquitto_pub -h 192.168.78.156 -u ABC -P EFG -t presence/0xb342eb36ca0c/hall/set -m 'on'`
+
+
+**To listen to PI device, just type in:**
+
+a. for CONFIG topic
+
+`pi@rpi4-tv:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t homeassistant/# -v`
+
+b. for WILL and/or STATE topic:
+
+`pi@rpi4-tv:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t presence/# -v`
+
+
+**Topic explanation:**
 
 | Topic     | Description     |
 | --------- | ------------------------------------------------------------------------------------------------------- |
@@ -196,7 +213,8 @@ Following topics are used:
 | SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using on as payload), `presence/0xb342eb36ca0c/hall/set on`               |
 | STATE     | This is the topic that PI device provide results after scanning whther device is found near by or not, `presence/0xb342eb36ca0c/hall/Name1 on` or `presence/0xb342eb36ca0c/hall/Name1 off`      |
 
-Details about topic construct:
+
+**More details about topics construct:**
 
 `homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`
 - where `Name1` is name in `database.json` and `0xb342eb36ca0c` is mac address of the device
@@ -209,6 +227,7 @@ Details about topic construct:
 
 `presence/0xb342eb36ca0c/hall/Name1`
 - where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
+
 
 
 ## Integration with Home Assistant
