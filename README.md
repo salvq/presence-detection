@@ -213,6 +213,7 @@ template:
 Example below provides example of configuration for automation which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute to trigger the scanning by sending the payload `on` to all the 3 devices.
 
 ```
+automation:
 - id: '1629390836472'
   alias: Presence trigger
   description: ''
