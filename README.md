@@ -188,8 +188,62 @@ pi@raspberrypi:~ $ docker-compose up -d
 
 ## Home Assistant integration (recommended)
 
-TBA
+**a. Create template sensor which will be updated based on all the locations.**
 
+Example below describes 3 devices in total, one in bedroom, second one in hall and 3rd one is kidsroom. If there is at least phone detected in either one of the room, sensor turns to `Home`, if all the 3 devices provides results as off sensor turns to `Away`. If the programs are shut down or not available (program is not running), sensor turns to `Unknown`
+
+```
+# Example configuration entry
+template:
+  sensor:
+    - name: Name1_presence_evaluation
+      unique_id: '0a7476bb-d6ce-40ba-8aes-606528c3497f'
+      state: >-
+        {% if is_state('device_tracker.name1_bedroom', 'on') or is_state('device_tracker.name1_hall', 'on') or is_state('device_tracker.name1_kidsroom', 'on') %}
+          Home
+        {% elif is_state('device_tracker.name1_bedroom', 'off') and is_state('device_tracker.name1_hall', 'off') and is_state('device_tracker.name1_kidsroom', 'off')  %}
+          Away
+        {% else %}
+          Unknown
+        {% endif %}
+```
+
+**b. create automation which triggers the scanning**
+
+Example below provides example of configuration for automation which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute to trigger the scanning by sending the payload `on` to all the 3 devices.
+
+```
+- id: '1629390836472'
+  alias: Presence trigger
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.0xa4c13811329a1502_contact
+  - platform: state
+    entity_id:
+    - binary_sensor.0xa4c138345ec22a63_contact
+  - platform: state
+    entity_id:
+    - sensor.garage_door_status
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: presence/0xb956eb36ca0d/bedroom/set
+      payload: 'on'
+  - service: mqtt.publish
+    data:
+      topic: presence/0xa09ec1325f2c/kidsroom/set
+      payload: 'on'
+  - service: mqtt.publish
+    data:
+      topic: presence/0xb342eb36ca0c/hall/set
+      payload: 'on'
+  mode: restart
+```
 
 
 ## General usage
