@@ -10,13 +10,6 @@ socket_name = socket.gethostname()
 
 # Read MAC address
 hex_mac_address = hex(uuid.getnode())
-#std_mac_address = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
-#dec_mac_address = (str(uuid.getnode()))
-
-# Generate client id
-#client_id = socket_name + '_' + hex_mac_address
-client_id_random = socket_name + '_' + hex_mac_address + str(random.randint(0,1000))
-#identifiers = socket_name + '_' + hex_mac_address
 
 # Retrieve required env. variables
 if 'HOST' not in os.environ or 'PORT' not in os.environ or 'USER' not in os.environ or 'LOCATION' not in os.environ or not 'PASSWORD' in os.environ:
@@ -35,11 +28,8 @@ will_qos = os.environ.get('WILLQOS', 1)
 will_retain = os.environ.get('WILLRETAIN', True)
 msg_qos = os.environ.get('MSGQOS', 1)
 msg_retain = os.environ.get('MSGRETAIN', True)
-#will_topic = 'presence/'+location+'/lwt'
 will_topic = 'presence/'+hex_mac_address+'/'+location+'/lwt'
-#publish_topic = 'presence/'+location
 publish_topic = 'presence/'+hex_mac_address+'/'+location
-#subscribed_topic = 'presence/'+location+'/set'
 subscribed_topic = 'presence/'+hex_mac_address+'/'+location+'/set'
 timeout_scan = os.environ.get('TIMEOUTSCAN', 2)
 sleep_between = os.environ.get('SLEEPBETWEEN', 5)
@@ -72,7 +62,7 @@ with open('/proc/device-tree/model') as f:
     full_model = f.read()
     mfg = full_model.split()[0]
 
-# Opening JSON file
+# Open mac database JSON file
 with open('./database.json', 'r') as openfile:
     database = json.load(openfile)
 
@@ -83,10 +73,8 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         logger.info(f'Server connected to broker, rc code: {rc}')
         for name in database["devices"]:
-           # model_name = mfg + '_' + hex_mac_address
             unique_id = name["name"] + '_' + hex_mac_address
             sensor_name = name["name"] + ' ' + location
-           # state_topic = 'presence/'+location+'/'+name["name"]
             state_topic = 'presence/'+hex_mac_address+'/'+location+'/'+name["name"]
             config_topic = 'homeassistant/device_tracker/'+unique_id+'/presence/config'
             print(state_topic)
@@ -146,8 +134,6 @@ def scan():
         time.sleep(sleep_between) # ble & wifi coexistence behaviour, sleeping between scans to decrease number of network drops
 
 # create client instance and set connection parameters
-#logger.debug(f'client_id: {client_id}, clean_session: {clean_session}, will_topic: {will_topic}')
-#logger.debug(f'will_payload: {will_payload}, will_qos: {will_qos}, will_retain: {will_retain}')
 client = mqttClient.Client(client_id_random, clean_session, userdata=None, protocol=mqttClient.MQTTv311, transport='tcp')
 client.username_pw_set(user_name, password)
 client.will_set(will_topic, 'offline', will_qos, will_retain)
@@ -160,6 +146,5 @@ client.on_message = on_message
 client.on_subscribe = on_subscribe
 
 # set initial connection flag, connect to broker and start the loop
-#logger.debug(f'host: {host}, port: {port}, user_name: {user_name}, password: {password}, willtopic: {will_topic}')
 client.connect(host, port, keepalive=60, bind_address='')
 client.loop_forever()
