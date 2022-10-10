@@ -13,7 +13,7 @@ hex_mac_address = hex(uuid.getnode())
 
 # Retrieve required env. variables
 if 'HOST' not in os.environ or 'PORT' not in os.environ or 'USER' not in os.environ or 'LOCATION' not in os.environ or not 'PASSWORD' in os.environ:
-    print(f'Required enviroment variable are missing, define and re-run program!')
+    logger.info(f'Required enviroment variable are missing, define and re-run program!')
     sys.exit()
 else:
     host = os.environ['HOST']
