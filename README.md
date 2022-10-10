@@ -65,7 +65,6 @@ pi@raspberrypi:~ $ sudo systemctl enable docker
 d. Install Docker compose
 ```
 pi@raspberrypi:~ $ sudo apt-get install libffi-dev libssl-dev
-pi@raspberrypi:~ $ sudo apt install python3-dev
 pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
 pi@raspberrypi:~ $ sudo apt-get install -y python3-bcrypt
 pi@raspberrypi:~ $ sudo pip3 install docker-compose
@@ -192,34 +191,25 @@ Following topics are used:
 
 | Topic     | Description     |
 | --------- | ------------------------------------------------------------------------------------------------------- |
-| CONFIG    | It is primarely used for Home Assistant integration, MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
-| WILL      | It can be utilize to get status of device, whter is only or offline                       |
-| SUBSCRIBE | Topic which PI device subscribe to, this triggers scanning when the device get an message with paylod 'on'               |
-| STATE     | Device provide results of scanning routinein this topic                 |
+| CONFIG    | This topic configure Home Assistant sensors, `homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`. It uses HA MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
+| WILL      | This TOPIC provides information about program status wheter is only or offline, `presence/0xb342eb36ca0c/hall/lwt online` or `presence/0xb342eb36ca0c/hall/lwt offline`|
+| SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using on as payload), `presence/0xb342eb36ca0c/hall/set on`               |
+| STATE     | This is the topic that PI device provide results after scanning whther device is found near by or not, `presence/0xb342eb36ca0c/hall/Name1 on` or `presence/0xb342eb36ca0c/hall/Name1 off`      |
 
-Here are the example of topics with possible payloads:
+Details about topic construct:
 
-**Config topic triggers creating of sensor & device in Home Assistant**
-```
-homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config
-```
+`homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`
+- where `Name1` is name in `database.json` and `0xb342eb36ca0c` is mac address of the device
 
-**Will topic provides status whether the program is online or offline**
-```
-presence/0xb342eb36ca0c/hall/lwt online
-presence/0xb342eb36ca0c/hall/lwt offline
-```
+`presence/0xb342eb36ca0c/hall/lwt`
+- where `0xb342eb36ca0c` is mac address of the device and `hall` is location from `docker-compose.yaml`
 
-**Subscribe topic triggers the bluetooth scanning**
-```
-presence/0xb342eb36ca0c/hall/set on
-```
+`presence/0xb342eb36ca0c/hall/set`
+- where `0xb342eb36ca0c` is mac address of the device and `hall` is location from `docker-compose.yaml`
 
-**State topic provides results after being triggered**
-```
-presence/0xb342eb36ca0c/hall/Name 1 on
-presence/0xb342eb36ca0c/hall/Name 1 off
-```
+`presence/0xb342eb36ca0c/hall/Name1`
+- where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
+
 
 ## Integration with Home Assistant
 
