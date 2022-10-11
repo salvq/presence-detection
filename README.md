@@ -201,7 +201,9 @@ template:
     - name: Name1_presence_evaluation
       unique_id: '0a7476bb-d6ce-40ba-8aes-606528c3497f'
       state: >-
-        {% if is_state('device_tracker.name1_bedroom', 'on') or is_state('device_tracker.name1_hall', 'on') or is_state('device_tracker.name1_kidsroom', 'on') %}
+        {% if is_state('device_tracker.name1_bedroom', 'unavailable') or is_state('device_tracker.name1_hall', 'unavailable') or is_state('device_tracker.name1_kidsroom', 'unavailable') %}
+          Unknown
+        {% elif is_state('device_tracker.name1_bedroom', 'on') or is_state('device_tracker.name1_hall', 'on') or is_state('device_tracker.name1_kidsroom', 'on') %}
           Home
         {% elif is_state('device_tracker.name1_bedroom', 'off') and is_state('device_tracker.name1_hall', 'off') and is_state('device_tracker.name1_kidsroom', 'off')  %}
           Away
