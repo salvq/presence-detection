@@ -216,7 +216,7 @@ template:
 
 Example below shows configuration which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute (optional) to trigger the scanning by sending the payload `on` to all the 3 devices.
 
-Note: triggers ensors have to be updated based on your configuration. The mqtt topics can be detected by listenning the general topic `presence/#`, by reading the docker log or in Home Assistant new created device.
+Note: triggers sensors have to be updated based on your configuration. The mqtt topics can be detected by listenning the general topic `presence/#`, by reading the docker log or in Home Assistant new created device.
 
 ```
 automation:
@@ -277,7 +277,7 @@ b. for WILL and/or STATE topic:
 | --------- | ------------------------------------------------------------------------------------------------------- |
 | CONFIG    | This topic configure Home Assistant sensors, `homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`. It uses HA MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
 | WILL      | This TOPIC provides information about program status wheter is only or offline, `presence/0xb342eb36ca0c/hall/lwt online` or `presence/0xb342eb36ca0c/hall/lwt offline`|
-| SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using on as payload), `presence/0xb342eb36ca0c/hall/set on`               |
+| SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using `on` as payload), `presence/0xb342eb36ca0c/hall/set on`               |
 | STATE     | This is the topic that PI device provide results after scanning whther device is found near by or not, `presence/0xb342eb36ca0c/hall/Name1 on` or `presence/0xb342eb36ca0c/hall/Name1 off`      |
 
 
