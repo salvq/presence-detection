@@ -214,7 +214,7 @@ template:
 
 **b. create automation which triggers the scanning**
 
-Example below provides example of configuration for automation which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute to trigger the scanning by sending the payload `on` to all the 3 devices.
+Example below shows configuration which triggers the scanning. Scanning below is triggered by opening doors like garage door, gate door, main door or even Home Assistant restart. After the trigger, automation waits for another minute (optional) to trigger the scanning by sending the payload `on` to all the 3 devices.
 
 Note: triggers ensors have to be updated based on your configuration. The mqtt topics can be detected by listenning the general topic `presence/#`, by reading the docker log or in Home Assistant new created device.
 
