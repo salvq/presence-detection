@@ -72,7 +72,7 @@ pi@raspberrypi:~ $ sudo apt-get install -y python3-bcrypt
 pi@raspberrypi:~ $ sudo pip3 install docker-compose
 ```
 
-**3. Bluetooth adapter**
+**3. Bluetooth adapter setup**
 
 Test whether your device has bluetooth enabled and can discover near by devices, try execute below commands. If you found similar results as below, you are ready from hardware and driver perspective, otherwise need to troubleshoot before continue. This docker relies on working Bluetooth hardware and software.
 
@@ -92,9 +92,9 @@ LE Scan ...
 $
 ```
 
-**4. Confirm correctly working hardware and software**
+**4. Final bluetooth detection confirmation (server bluetooth adapter vs. phone bluetooth discovery)**
 
-a. Install Python3 if not already installed
+a. Install python3 environment
 
 b. Install python3 bluetooth library
 ```
