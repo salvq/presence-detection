@@ -112,9 +112,7 @@ pi@raspberrypi:~ $ git clone https://github.com/salvq/presence-detection.git
 
 ## Update MAC address of your Phones or other devices
 
-Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses.
-
-Note: Make sure your MAC address is not randomize as this presence detection check rely on fixed MAC address. And every name must be unique i.e. do not use 2 same names as this would break the logic of sensing and detecting the individual persons.
+Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses. Every "name" value must be unique i.e. do not use 2 same names as this would break the logic of sensing and detecting the individual persons.
 
 Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located in the same files as `docker-compose.yaml`
 
@@ -134,6 +132,12 @@ Content of `database.json` file is following:
   ]
 }       
 ```
+
+Note 1: Make sure your MAC address is not randomize as this presence detection check that relies on fixed MAC address (this might be case of Android, not iPhone).
+
+Note 2: If you have encountered an undetected iPhone, it may be due to Bluetooth not being "used", make sure you have at least 1 device paired not necessary connected.
+
+![image](https://user-images.githubusercontent.com/43242348/210435225-a165de71-596a-42da-aa77-f29b80179801.png)
 
 ## Update Container configuration
 
