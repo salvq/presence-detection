@@ -110,6 +110,7 @@ $ python3
 Python 3.7.13 (default, Aug  3 2022, 02:00:49)
 [GCC 8.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
+>>> import bluetooth
 >>> from bluetooth import *
 >>> bluetooth.lookup_name('AA:BB:CC:DD:EE:FF', timeout=5)
 'iPhoneJ'
