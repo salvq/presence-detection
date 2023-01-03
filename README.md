@@ -92,6 +92,38 @@ LE Scan ...
 $
 ```
 
+**4. Confirm correctly working hardware and software**
+
+a. Install Python3 if not already installed
+
+b. Install python3 bluetooth library
+```
+$ pip3 install pybluez==0.23
+Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
+Requirement already satisfied: pybluez==0.23 in /home/pi/.local/lib/python3.7/site-packages (0.23)
+$
+```
+
+c. Execute bluetooth lookup name routine
+```
+$ python3
+Python 3.7.13 (default, Aug  3 2022, 02:00:49)
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from bluetooth import *
+>>> bluetooth.lookup_name('AA:BB:CC:DD:EE:FF', timeout=5)
+'iPhoneJ'
+>>>
+```
+
+If you find an iPhone name listed, such as "iPhoneJ", you can proceed, if no name is listed, make sure the notes below are taken into account.
+
+Note 1: Make sure your MAC address is not randomize as this presence detection check that relies on fixed MAC address (this might be case of Android, not iPhone).
+
+Note 2: If you have encountered an undetected iPhone, it may be due to Bluetooth not being "used", make sure you have at least 1 device paired not necessary connected.
+
+![image](https://user-images.githubusercontent.com/43242348/210435225-a165de71-596a-42da-aa77-f29b80179801.png)
+
 ## Download this repository to your PI
 
 
@@ -132,12 +164,6 @@ Content of `database.json` file is following:
   ]
 }       
 ```
-
-Note 1: Make sure your MAC address is not randomize as this presence detection check that relies on fixed MAC address (this might be case of Android, not iPhone).
-
-Note 2: If you have encountered an undetected iPhone, it may be due to Bluetooth not being "used", make sure you have at least 1 device paired not necessary connected.
-
-![image](https://user-images.githubusercontent.com/43242348/210435225-a165de71-596a-42da-aa77-f29b80179801.png)
 
 ## Update Container configuration
 
