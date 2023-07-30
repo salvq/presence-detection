@@ -9,8 +9,8 @@ This container utilize Bluetooth classic to detect the device i.e. Phone via MAC
 Docker image is available on https://hub.docker.com/repository/docker/salvq/presence
 
 Note1: there are 2 different docker images
-- with local_json with image tag 2.0.0 - used with local database.json (needed database.json per every device)
-- with http_json with image tag 2.1.0 - used with http request for database.json (no need for local database.json, example of request `http://192.168.78.156:8000/database.json`)
+- with local_json with image tag 2.0.0 - used with local database.json (needed database.json available onevery raspberry running docker)
+- with http_json with image tag 2.1.0 - used with http request for database.json (no need for local database.json, data are available via simplehttp server via request `http://192.168.78.156:8000/database.json`)
 
 Note2: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
 
