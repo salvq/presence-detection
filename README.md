@@ -27,8 +27,8 @@ a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi
 
 b. Create several files and copy to SD card root folder:
 - `ssh` to enable connection via ssh
-- `wpa_supplicant.conf` to enable to connect via Wi-Fi
-- `userconf` userfile as specified by http://rptl.io/newuser
+- `wpa_supplicant.conf` to enable to connect via Wi-Fi (file has to be updated based on your wi-fi credentails)
+- `userconf` userfile as specified by http://rptl.io/newuser (file includes login & password credential, login `pi` and password `passowrd`)
 - use ssh manager like putty to connect to PI (either use IP address or use raspberrypi.local instead)
 
 
