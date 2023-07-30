@@ -8,7 +8,11 @@ This container utilize Bluetooth classic to detect the device i.e. Phone via MAC
 
 Docker image is available on https://hub.docker.com/repository/docker/salvq/presence
 
-Note: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
+Note1: there are 2 different docker images
+- with tag 2.0.0 - used with local database.json (needed database.json per every device)
+- with tag 2.1.0 - used with http request for database.json (no need for local database.json)
+
+Note2: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
 
 ## Supported Platforms
 
