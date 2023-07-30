@@ -74,7 +74,7 @@ with open('/proc/device-tree/model') as f:
     mfg = full_model.split()[0]
 
 # Opening JSON http file
-with urlopen('http://192.168.1.106:8019/database.json') as openfile_http:
+with urlopen('http://192.168.5.76:8000/database.json') as openfile_http:
     database_http = json.load(openfile_http)
 
 # Opening JSON file
