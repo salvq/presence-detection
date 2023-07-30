@@ -18,9 +18,14 @@ Note: Using Home Assistant is not must but very recommended as it provides easy 
 
 **1. Prepare Raspberry PI:**
 
-a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
+a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager (image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`)
 
-b. Create user file as specified by http://rptl.io/newuser
+b. Create several files and copy to SD card root folder:
+- `ssh` to enable connection via ssh
+- `wpa_supplicant.conf` to enable to connect via Wi-Fi
+- `userconf` userfile as specified by http://rptl.io/newuser
+- use ssh manager like putty to connect to PI (either use IP address or use raspberrypi.local instead)
+
 
 c. Make neccessary settings via `pi@raspberrypi:~ $ sudo raspi-config`
 ```
@@ -64,7 +69,7 @@ c. Enable docker when system bootup
 pi@raspberrypi:~ $ sudo systemctl enable docker
 ```
 
-d. Install Docker compose
+d. Optionally install Docker compose if you intend to use ```docker-compose up``` instead of ```docker run```
 ```
 pi@raspberrypi:~ $ sudo apt-get install libffi-dev libssl-dev
 pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
@@ -168,7 +173,7 @@ Content of `database.json` file is following:
 
 ## Update Container configuration
 
-Edit and update `docker-compose.yaml` file based on your needs. Minimal config of docker-compose.yaml file is following:
+Optionally edit and update `docker-compose.yaml` file based on your needs. Minimal config of docker-compose.yaml file is following:
 ```
 version: '3'
 
@@ -189,6 +194,8 @@ services:
       - ./database.json:/presence/database.json
       - /etc/localtime:/etc/localtime:ro
 ```
+
+
 
 | Name         | Environment | Default | Description                                                                      |
 | ------------ | ----------- | ------- | -------------------------------------------------------------------------------- |
@@ -214,7 +221,24 @@ Navigate to folder with downloaded repository
 ```
 pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
 ```
-Run command to start the docker instance, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
+Run command to start the docker instance for `docker run`, it must be in folder where is located `database.json`
+```
+docker run -d \
+--name presence \
+--privileged \
+--net=host \
+--restart=always \
+-e HOST=192.168.78.156
+-e PORT=1883
+-e USER=ABC
+-e PASSWORD=EFG
+-e LOCATION=hall
+-e LOGGING=DEBUG \
+-v ./database.json:/presence/database.json \
+-v /etc/localtime:/etc/localtime:ro \
+salvq/presence:2.0.0
+```
+Optionally run command to start the docker instance for `docker-compose`, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
 ```
 pi@raspberrypi:~ $ docker-compose up -d
 ```
