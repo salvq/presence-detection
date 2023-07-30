@@ -12,7 +12,7 @@ There are 2 different docker images
 - with image tag 2.0.0 based on local_json - used with local file `database.json` (image does need file `database.json` to be available on every raspberry running docker image)
 - with image tag 2.1.0 based on http_json - used with http request for `database.json` (image doesn't need file `database.json`, file is available via simplehttp server, file is requested on docker start via request example `http://192.168.78.156:8000/database.json`)
 
-Note2: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
+Note: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
 
 ## Supported Platforms
 
