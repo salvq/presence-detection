@@ -18,7 +18,8 @@ Note: Using Home Assistant is not must but very recommended as it provides easy 
 
 **1. Prepare Raspberry PI:**
 
-a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager (image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`)
+a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
+- image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`
 
 b. Create several files and copy to SD card root folder:
 - `ssh` to enable connection via ssh
