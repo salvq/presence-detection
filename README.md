@@ -10,7 +10,7 @@ Docker image is available on https://hub.docker.com/repository/docker/salvq/pres
 
 Note1: there are 2 different docker images
 - with tag 2.0.0 - used with local database.json (needed database.json per every device)
-- with tag 2.1.0 - used with http request for database.json (no need for local database.json)
+- with tag 2.1.0 - used with http request for database.json (no need for local database.json, example of request `http://192.168.78.156:8000/database.json`)
 
 Note2: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
 
@@ -357,3 +357,26 @@ b. for WILL and/or STATE topic:
 `presence/0xb342eb36ca0c/hall/Name1`
 - where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
 
+**Example of request and Simple HTTP server**
+
+Request example `http://192.168.78.156:8000/database.json`
+
+Example of server code where root folder `simplehttpserver` must include `database.json`
+```
+import http.server
+import socketserver
+import os
+
+folder = '/simplehttpserver'
+os.chdir(folder)
+
+Handler = http.server.SimpleHTTPRequestHandler
+httpd = socketserver.TCPServer(("", 8000), Handler)
+
+try:
+    httpd.serve_forever()
+
+except Exception as e:
+    httpd.server_close()
+    print(f'{current_time} Errors in program: {e}')
+```
