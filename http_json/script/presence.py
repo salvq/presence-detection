@@ -11,8 +11,8 @@ socket_name = socket.gethostname()
 
 # Read MAC address
 hex_mac_address = hex(uuid.getnode())
-std_mac_address = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
-dec_mac_address = (str(uuid.getnode()))
+#std_mac_address = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+#dec_mac_address = (str(uuid.getnode()))
 
 # Generate client id
 #client_id = socket_name + '_' + hex_mac_address
@@ -21,7 +21,7 @@ client_id_random = socket_name + '_' + hex_mac_address + str(random.randint(0,10
 
 # Retrieve required env. variables
 if 'HOST' not in os.environ or 'PORT' not in os.environ or 'USER' not in os.environ or 'LOCATION' not in os.environ or not 'PASSWORD' in os.environ:
-    print(f'Required enviroment variable are missing, define and re-run program!')
+    logger.info(f'Required enviroment variable are missing, define and re-run program!')
     sys.exit()
 else:
     host = os.environ['HOST']
@@ -36,14 +36,14 @@ will_qos = os.environ.get('WILLQOS', 1)
 will_retain = os.environ.get('WILLRETAIN', True)
 msg_qos = os.environ.get('MSGQOS', 1)
 msg_retain = os.environ.get('MSGRETAIN', True)
-will_topic = 'presence/'+location+'/lwt'
-publish_topic = 'presence/'+location
-subscribed_topic = 'presence/'+location+'/set'
+#will_topic = 'presence/'+location+'/lwt'
+will_topic = 'presence/'+hex_mac_address+'/'+location+'/lwt'
+#publish_topic = 'presence/'+location
+publish_topic = 'presence/'+hex_mac_address+'/'+location
+#subscribed_topic = 'presence/'+location+'/set'
+subscribed_topic = 'presence/'+hex_mac_address+'/'+location+'/set'
 timeout_scan = os.environ.get('TIMEOUTSCAN', 2)
 sleep_between = os.environ.get('SLEEPBETWEEN', 5)
-print(will_topic)
-print(publish_topic)
-print(subscribed_topic)
 
 # create and set logger level
 logger = logging.getLogger(__name__)
@@ -73,13 +73,10 @@ with open('/proc/device-tree/model') as f:
     full_model = f.read()
     mfg = full_model.split()[0]
 
-# Opening JSON http file
-with urlopen('http://192.168.5.76:8000/database.json') as openfile_http:
-    database_http = json.load(openfile_http)
-
-# Opening JSON file
-#with open('./database.json', 'r') as openfile:
-#    database = json.load(openfile)
+# Open mac database JSON file
+with urlopen('http://192.168.1.106:8019/database.json') as openfile:
+    logger.info(f'Reading MAC from http json file: http://192.168.1.106:8019/database.json')
+    database = json.load(openfile)
 
 def on_log(client, userdata, level, buf):
     logger.debug(f'on_log: {buf}')
@@ -87,13 +84,13 @@ def on_log(client, userdata, level, buf):
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         logger.info(f'Server connected to broker, rc code: {rc}')
-        for name in database_http["devices"]:
-#        for name in database["devices"]:
+        for name in database["devices"]:
            # model_name = mfg + '_' + hex_mac_address
             unique_id = name["name"] + '_' + hex_mac_address
             sensor_name = name["name"] + ' ' + location
-            state_topic = 'presence/'+location+'/'+name["name"]
-            config_topic = 'homeassistant/device_tracker/'+name["name"]+'/'+location+'/config'
+           # state_topic = 'presence/'+location+'/'+name["name"]
+            state_topic = 'presence/'+hex_mac_address+'/'+location+'/'+name["name"]
+            config_topic = 'homeassistant/device_tracker/'+unique_id+'/presence/config'
             print(state_topic)
             print(config_topic)
             data_set = {
@@ -136,8 +133,7 @@ def on_subscribe(client, userdata, mid, granted_qos):
     logger.info(f'Client subscribed to topic: {subscribed_topic}, with callback mid: {mid}')
 
 def scan():
-    for device in database_http["devices"]:
-#    for device in database["devices"]:
+    for device in database["devices"]:
         logger.debug(f'Searching for {device["mac"]}')
         result = bluetooth.lookup_name(device['mac'], timeout=timeout_scan)
         if result:
