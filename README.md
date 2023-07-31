@@ -345,7 +345,7 @@ automation:
 
 a. for CONFIG topic
 
-`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.5.76 -u login -P password -t homeassistant/# -v`
+`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.5.76 -u login -P password -t homeassistant/device_tracker/# -v`
 
 b. for WILL and/or STATE topic:
 
