@@ -98,7 +98,7 @@ LE Scan ...
 $
 ```
 
-**4. Final bluetooth detection confirmation (server bluetooth adapter vs. phone bluetooth discovery)**
+**4. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
 
 a. Install python3 environment
 
