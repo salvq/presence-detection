@@ -246,7 +246,7 @@ pi@raspberrypi:~ $ docker-compose up -d
 
 **Example of HTTP server used to expose `database.json`**
 
-Server code where root folder `simplehttpserver` must include `database.json`
+HTTP server code where root folder `simplehttpserver` must include `database.json` i.e. it may look like `/simplehttpserver/presence/database.json`
 ```
 import http.server
 import socketserver
