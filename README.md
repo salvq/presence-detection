@@ -12,7 +12,7 @@ Note: Using Home Assistant is not must but very recommended as it provides easy 
 
 ## Supported Platforms
 
-* linux/arm/v5
+* linux/arm/v5 and up
 
 ## Prerequisites
 
