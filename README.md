@@ -8,7 +8,7 @@ This container utilize Bluetooth classic to detect the device i.e. Phone via MAC
 
 Docker image is available on https://hub.docker.com/repository/docker/salvq/presence
 
-Note: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything.
+Note: Using Home Assistant is not must but very recommended as it provides easy integration of other devices and connecting anything with everything. Presence detection can be used also without need of Home Assistant, read more on General usage.
 
 ## Supported Platforms
 
