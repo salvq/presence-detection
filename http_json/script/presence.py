@@ -74,8 +74,8 @@ with open('/proc/device-tree/model') as f:
     mfg = full_model.split()[0]
 
 # Open mac database JSON file
-with urlopen('http://192.168.1.106:8019/database.json') as openfile:
-    logger.info(f'Reading MAC from http json file: http://192.168.1.106:8019/database.json')
+with open('./database.json', 'r') as openfile:
+    logger.info(f'Reading MAC from local json file: ./database.json')
     database = json.load(openfile)
 
 def on_log(client, userdata, level, buf):
