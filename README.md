@@ -98,7 +98,29 @@ LE Scan ...
 $
 ```
 
-**4. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
+**4. HTTP server for serving `database.json` file**
+
+HTTP server code where root folder `simplehttpserver` must include `database.json` i.e. it may look like `/simplehttpserver/presence/database.json`
+```
+import http.server
+import socketserver
+import os
+
+folder = '/simplehttpserver'
+os.chdir(folder)
+
+Handler = http.server.SimpleHTTPRequestHandler
+httpd = socketserver.TCPServer(("", 8019), Handler)
+
+try:
+    httpd.serve_forever()
+
+except Exception as e:
+    httpd.server_close()
+    print(f'{current_time} Errors in program: {e}')
+```
+
+**5. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
 
 a. Install python3 bluetooth library
 ```
@@ -244,27 +266,6 @@ Optionally run command to start the docker instance for `docker-compose`
 pi@raspberrypi:~ $ docker-compose up -d
 ```
 
-**Example of HTTP server used to expose `database.json`**
-
-HTTP server code where root folder `simplehttpserver` must include `database.json` i.e. it may look like `/simplehttpserver/presence/database.json`
-```
-import http.server
-import socketserver
-import os
-
-folder = '/simplehttpserver'
-os.chdir(folder)
-
-Handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(("", 8019), Handler)
-
-try:
-    httpd.serve_forever()
-
-except Exception as e:
-    httpd.server_close()
-    print(f'{current_time} Errors in program: {e}')
-```
 
 ## Home Assistant integration (recommended)
 
