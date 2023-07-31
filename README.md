@@ -100,7 +100,7 @@ $
 
 **4. HTTP server for serving `database.json` file**
 
-HTTP server code where root folder `simplehttpserver` must include `database.json` i.e. it may look like `/simplehttpserver/presence/database.json`
+HTTP server code in python, root folder `/simplehttpserver` must include `database.json` so the system directory may look like `/simplehttpserver/presence/database.json`
 ```
 import http.server
 import socketserver
