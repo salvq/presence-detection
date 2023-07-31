@@ -334,45 +334,29 @@ automation:
 ```
 
 
-## General usage
+## General usage without Home Assistant
 
 **To trigger the scanning, type in**
 
-`pi@raspberrypi:~ $ sudo mosquitto_pub -h 192.168.78.156 -u ABC -P EFG -t presence/0xb342eb36ca0c/hall/set -m 'on'`
+`pi@raspberrypi:~ $ sudo mosquitto_pub -h 192.168.5.76 -u login -P password -t presence/0xb342eb36ca0c/hall/set -m 'on'`
 
 
 **To listen to PI device, just type in:**
 
 a. for CONFIG topic
 
-`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t homeassistant/# -v`
+`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.5.76 -u login -P password -t homeassistant/# -v`
 
 b. for WILL and/or STATE topic:
 
-`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.78.156 -u ABC -P EFG -t presence/# -v`
+`pi@rraspberrypi:~ $ sudo mosquitto_sub -h 192.168.5.76 -u login -P password -t presence/# -v`
 
 
 **Topic explanation:**
 
 | Topic     | Description     |
 | --------- | ------------------------------------------------------------------------------------------------------- |
-| CONFIG    | This topic configure Home Assistant sensors, `homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`. It uses HA MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/ |
-| WILL      | This TOPIC provides information about program status wheter is only or offline, `presence/0xb342eb36ca0c/hall/lwt online` or `presence/0xb342eb36ca0c/hall/lwt offline`|
-| SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using `on` as payload), `presence/0xb342eb36ca0c/hall/set on`               |
-| STATE     | This is the topic that PI device provide results to whether the `Name1` device is found near by or not, `presence/0xb342eb36ca0c/hall/Name1 on` or `presence/0xb342eb36ca0c/hall/Name1 off`      |
-
-
-**More details about topics construct:**
-
-`homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`
-- where `Name1` is name in `database.json` and `0xb342eb36ca0c` is mac address of the device
-
-`presence/0xb342eb36ca0c/hall/lwt`
-- where `0xb342eb36ca0c` is mac address of the device and `hall` is location from `docker-compose.yaml`
-
-`presence/0xb342eb36ca0c/hall/set`
-- where `0xb342eb36ca0c` is mac address of the device and `hall` is location from `docker-compose.yaml`
-
-`presence/0xb342eb36ca0c/hall/Name1`
-- where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
-
+| CONFIG    | This topic configure Home Assistant sensors, `homeassistant/device_tracker/Name1_0xb342eb36ca0c/presence/config`. `Name1` is name in `database.json` and `0xb342eb36ca0c` is mac address of the device running docker. It uses HA MQTT discovery protocol, see https://www.home-assistant.io/docs/mqtt/discovery/. |
+| WILL      | This TOPIC provides information about program status wheter is only or offline, `presence/0xb342eb36ca0c/hall/lwt online` or `presence/0xb342eb36ca0c/hall/lwt offline`. Where `0xb342eb36ca0c` is mac address of the device running docker and `hall` is location. |
+| SUBSCRIBE | Topic which PI device subscribe to is used to start/trigger scanning (using `on` as payload), `presence/0xb342eb36ca0c/hall/set on`. Where `0xb342eb36ca0c` is mac address of the device running docker and `hall` is location.               |
+| STATE     | This is the topic that PI device provide results to whether the `Name1` device is found near by or not, `presence/0xb342eb36ca0c/hall/Name1 on` or `presence/0xb342eb36ca0c/hall/Name1 off`. Where `0xb342eb36ca0c` is mac address of the device running docker, `hall` is location and `Name1` is name in `database.json`      |
