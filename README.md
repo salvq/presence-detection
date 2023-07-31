@@ -100,9 +100,7 @@ $
 
 **4. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
 
-a. Install python3 environment
-
-b. Install python3 bluetooth library
+a. Install python3 bluetooth library
 ```
 $ pip3 install pybluez==0.23
 Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
@@ -110,7 +108,7 @@ Requirement already satisfied: pybluez==0.23 in /home/pi/.local/lib/python3.7/si
 $
 ```
 
-c. Execute bluetooth lookup name routine
+b. Execute bluetooth lookup name routine
 ```
 $ python3
 Python 3.7.13 (default, Aug  3 2022, 02:00:49)
