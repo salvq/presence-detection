@@ -28,7 +28,7 @@ a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi
 b. Create several files and copy to SD card root folder:
 - `ssh` to enable connection via ssh
 - `wpa_supplicant.conf` to enable to connect via Wi-Fi (file has to be updated based on your wi-fi credentails)
-- `userconf` userfile as specified by http://rptl.io/newuser (file includes login & password credential, login `pi` and password `passowrd`)
+- `userconf` userfile as specified by http://rptl.io/newuser (file includes login & password credential, login `pi` and password `password`)
 - use ssh manager like putty to connect to PI (either use IP address or use raspberrypi.local instead)
 
 
@@ -157,7 +157,7 @@ pi@raspberrypi:~ $ git clone https://github.com/salvq/presence-detection.git
 
 Write down your MAC address from your Android or iPhone and create as many records as you want i.e. depends on how many persons / devices you want to detect. In my case, I am using to detect mine and my wife's phone, so I ended up having 2 MAC addresses. Every "name" value must be unique i.e. do not use 2 same names as this would break the logic of sensing and detecting the individual persons.
 
-Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located in the same files as `docker-compose.yaml`
+Edit `database.json` file and add as many records as needed in devices section but must follow JSON content structure and file must be located on server via HTTP request
 
 Content of `database.json` file is following:
 
@@ -183,20 +183,21 @@ Optionally edit and update `docker-compose.yaml` file based on your needs. Minim
 version: '3'
 
 services:
-  test:
-    image: salvq/presence:2.0.0
+  presence:
+    image: salvq/presence:2.3.0
     container_name: presence
     restart: unless-stopped
     network_mode: host
     privileged: true
     environment:
-      - HOST=192.168.78.156
+      - HOST=192.168.5.76
       - PORT=1883
-      - USER=ABC
-      - PASSWORD=EFG
-      - LOCATION=hall
+      - USER=login
+      - PASSWORD=passowrd
+      - LOCATION=roomA
+      - LOGGING=DEBUG
+      - DBASE=http://192.168.5.76:8019/presence/database.json
     volumes:
-      - ./database.json:/presence/database.json
       - /etc/localtime:/etc/localtime:ro
 ```
 
@@ -209,6 +210,7 @@ services:
 | USER         | REQUIRED    | NONE    | MQTT broker user authetification, example USER=name                       |
 | PASSWORD     | REQUIRED    | NONE    | MQTT broker password authetification, PASSWORD=secret                       |
 | LOCATION     | REQUIRED    | NONE    | Location of device running this docker like bedroom, example LOCATION=bedroom |
+| DBASE        | REQUIRED    | NONE    | Location of your database.json file, example http://192.168.5.76:8019/presence/database.json |
 | CLEANSESSION | OPTIONAL    | FALSE   | MQTT advance settings, possible value FALSE or TRUE                       |
 | WILLQOS      | OPTIONAL    | 1       | Last Will and Testament QOS (possible value 0, 1 or 2)                       |
 | WILLRETAIN   | OPTIONAL    | TRUE    | Last Will and Testament retain message (possible FALSE or TRUE)                       |
@@ -226,26 +228,48 @@ Navigate to folder with downloaded repository
 ```
 pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
 ```
-Run command to start the docker instance for `docker run`, it must be in folder where is located `database.json`
+Run command to start the docker instance for `docker run`
 ```
 docker run -d \
 --name presence \
 --privileged \
 --net=host \
 --restart=always \
--e HOST=192.168.78.156
--e PORT=1883
--e USER=ABC
--e PASSWORD=EFG
--e LOCATION=hall
+-e HOST=192.168.5.76 \
+-e PORT=1883 \
+-e USER=login \
+-e PASSWORD=password \
+-e LOCATION=roomA \
 -e LOGGING=DEBUG \
--v ./database.json:/presence/database.json \
+-e DBASE=http://192.168.5.76:8019/presence/database.json \
 -v /etc/localtime:/etc/localtime:ro \
-salvq/presence:2.0.0
+salvq/presence:2.3.0
 ```
-Optionally run command to start the docker instance for `docker-compose`, it must be in folder where both updated files are located i.e. `database.json` and `docker-compose.yaml`
+Optionally run command to start the docker instance for `docker-compose`
 ```
 pi@raspberrypi:~ $ docker-compose up -d
+```
+
+**Example of HTTP server used to expose `database.json`**
+
+Example of server code where root folder `simplehttpserver` must include `database.json`
+```
+import http.server
+import socketserver
+import os
+
+folder = '/simplehttpserver'
+os.chdir(folder)
+
+Handler = http.server.SimpleHTTPRequestHandler
+httpd = socketserver.TCPServer(("", 8019), Handler)
+
+try:
+    httpd.serve_forever()
+
+except Exception as e:
+    httpd.server_close()
+    print(f'{current_time} Errors in program: {e}')
 ```
 
 ## Home Assistant integration (recommended)
@@ -357,26 +381,3 @@ b. for WILL and/or STATE topic:
 `presence/0xb342eb36ca0c/hall/Name1`
 - where `0xb342eb36ca0c` is mac address of the device, `hall` is location from `docker-compose.yaml` and `Name1` is name in `database.json`
 
-**Example of request and Simple HTTP server**
-
-Request example `http://192.168.78.156:8000/database.json`
-
-Example of server code where root folder `simplehttpserver` must include `database.json`
-```
-import http.server
-import socketserver
-import os
-
-folder = '/simplehttpserver'
-os.chdir(folder)
-
-Handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(("", 8000), Handler)
-
-try:
-    httpd.serve_forever()
-
-except Exception as e:
-    httpd.server_close()
-    print(f'{current_time} Errors in program: {e}')
-```
