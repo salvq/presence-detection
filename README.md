@@ -100,25 +100,9 @@ $
 
 **4. HTTP server for serving `database.json` file**
 
-HTTP server code in python, root folder `/simplehttpserver` must include `database.json` so the system directory may look like `/simplehttpserver/presence/database.json`
-```
-import http.server
-import socketserver
-import os
+To make easy sharing json file across different devices and docker container, I use HTTP server to localy expose `database.json`, just copy json file to dedicated folder for instance `/share/Container/simplehttpserver`.
 
-folder = '/simplehttpserver'
-os.chdir(folder)
-
-Handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(("", 8019), Handler)
-
-try:
-    httpd.serve_forever()
-
-except Exception as e:
-    httpd.server_close()
-    print(f'{current_time} Errors in program: {e}')
-```
+More details how to setup an easy HTTP server you can find on the [link](https://github.com/salvq/simplehttpserver)
 
 **5. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
 
