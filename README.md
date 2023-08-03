@@ -6,7 +6,7 @@ I found the best device to run the docker on Raspberry PI (from Zero up to PI4).
 
 This container utilize Bluetooth classic to detect the device i.e. Phone via MAC address. Indeed, primary reason is to detect person inside/outside the house to trigger further actions such as check for windows open/close status, switch off/on the lights, sockets etc. anything you imagine. This docker utilize MQTT protocol and Home Assistant MQTT Discovery protocol for plug & play integration, link https://www.home-assistant.io/docs/mqtt/discovery/
 
-Docker image is available on https://hub.docker.com/repository/docker/salvq/presence
+Docker image is available on https://hub.docker.com/r/salvq/presence
 
 Note: Using Home Assistant is not must but very recommended. More details information for using without Home Assistant are available in General usage section.
 
