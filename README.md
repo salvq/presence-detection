@@ -100,7 +100,7 @@ $
 
 **4. HTTP server for serving `database.json` file**
 
-To make sharing file json easy across different devices and docker containers, I use HTTP server to localy expose `database.json`. Just copy `database.json` file to host folder, for instance `/share/Container/simplehttpserver/database.json`.
+To make sharing json file easy across different devices and docker containers, I use HTTP server to localy expose `database.json`. Just copy `database.json` file to host folder, for instance `/share/Container/simplehttpserver/database.json`.
 
 More details how to setup an easy HTTP server you can find on the [link](https://github.com/salvq/simplehttpserver)
 
