@@ -17,10 +17,11 @@ Note: Using Home Assistant is not must but very recommended. More details inform
 ## Prerequsities
 
 <details>
-  <summary>1. Prepare Raspberry PI</summary>
+<summary>1. Prepare Raspberry PI</summary>
 a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
 - image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`
 
+###
 b. Create several files and copy to SD card root folder:
 - `ssh` to enable connection via ssh
 - `wpa_supplicant.conf` to enable to connect via Wi-Fi (file has to be updated based on your wi-fi credentails)
