@@ -18,6 +18,8 @@ Note: Using Home Assistant is not must but very recommended. More details inform
 
 <details>
 <summary>1. Prepare Raspberry PI</summary>
+
+###
 a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
 - image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`
 
@@ -54,8 +56,9 @@ sudo reboot
 </details>
 
 <details>
-  <summary>2. Install Docker</summary>
+<summary>2. Install Docker</summary>
 
+###
 a. Install Docker
 ```
 pi@raspberrypi:~ $ sudo curl -fsSL https://get.docker.com -o get-docker.sh
@@ -83,8 +86,9 @@ pi@raspberrypi:~ $ sudo pip3 install docker-compose
 </details>
 
 <details>
-  <summary>3. Bluetooth adapter setup</summary>
+<summary>3. Bluetooth adapter setup</summary>
 
+###
 Test whether your device has bluetooth enabled and can discover near by devices, try execute below commands. If you found similar results as below, you are ready from hardware and driver perspective, otherwise need to troubleshoot before continue. This docker relies on working Bluetooth hardware and software.
 
 ```
@@ -105,8 +109,9 @@ $
 </details>
 
 <details>
-  <summary>4. Validate pybluez discovery routine</summary>
+<summary>4. Validate pybluez discovery routine</summary>
 
+###
 a. Install python3 bluetooth library
 ```
 $ pip3 install pybluez==0.23
@@ -138,8 +143,9 @@ Note 2: If you have encountered an undetected iPhone, it may be due to Bluetooth
 </details>
 
 <details>
-  <summary>5. HTTP server for serving `database.json` file</summary>
+<summary>5. HTTP server for serving `database.json` file</summary>
 
+###
 To make sharing json file easy across different devices and docker containers, I use HTTP server to localy expose `database.json`. Just copy `database.json` file to host folder, for instance `/share/Container/simplehttpserver/database.json`.
 
 More details how to setup an easy HTTP server you can find on the [link](https://github.com/salvq/simplehttpserver)
