@@ -14,9 +14,10 @@ Note: Using Home Assistant is not must but very recommended. More details inform
 
 * linux/arm/v5 and up
 
-## Prerequisites
+## Prerequsities
 
-**1. Prepare Raspberry PI:**
+<details>
+  <summary>1. Prepare Raspberry PI</summary>
 
 a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
 - image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`
@@ -50,8 +51,10 @@ Reboot the Pi
 ```
 sudo reboot
 ```
+</details>
 
-**2. Docker readiness:**
+<details>
+  <summary>2. Install Docker</summary>
 
 a. Install Docker
 ```
@@ -77,8 +80,10 @@ pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
 pi@raspberrypi:~ $ sudo apt-get install -y python3-bcrypt
 pi@raspberrypi:~ $ sudo pip3 install docker-compose
 ```
+</details>
 
-**3. Bluetooth adapter setup**
+<details>
+  <summary>3. Bluetooth adapter setup</summary>
 
 Test whether your device has bluetooth enabled and can discover near by devices, try execute below commands. If you found similar results as below, you are ready from hardware and driver perspective, otherwise need to troubleshoot before continue. This docker relies on working Bluetooth hardware and software.
 
@@ -97,14 +102,10 @@ LE Scan ...
 22:35:1A:C8:31:C5 (unknown)
 $
 ```
+</details>
 
-**4. HTTP server for serving `database.json` file**
-
-To make sharing json file easy across different devices and docker containers, I use HTTP server to localy expose `database.json`. Just copy `database.json` file to host folder, for instance `/share/Container/simplehttpserver/database.json`.
-
-More details how to setup an easy HTTP server you can find on the [link](https://github.com/salvq/simplehttpserver)
-
-**5. Optionally check your bluetooth detection (server bluetooth adapter vs. phone bluetooth discovery)**
+<details>
+  <summary>4. Validate pybluez discovery routine</summary>
 
 a. Install python3 bluetooth library
 ```
@@ -134,6 +135,16 @@ Note 1: Make sure your MAC address is not randomize as this presence detection c
 Note 2: If you have encountered an undetected iPhone, it may be due to Bluetooth not being "used", make sure you have at least 1 device paired not necessary connected.
 
 ![image](https://user-images.githubusercontent.com/43242348/210435225-a165de71-596a-42da-aa77-f29b80179801.png)
+</details>
+
+<details>
+  <summary>5. HTTP server for serving `database.json` file</summary>
+
+To make sharing json file easy across different devices and docker containers, I use HTTP server to localy expose `database.json`. Just copy `database.json` file to host folder, for instance `/share/Container/simplehttpserver/database.json`.
+
+More details how to setup an easy HTTP server you can find on the [link](https://github.com/salvq/simplehttpserver)
+</details>
+
 
 ## Download this repository to your PI
 
