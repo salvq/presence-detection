@@ -18,7 +18,6 @@ Note: Using Home Assistant is not must but very recommended. More details inform
 
 <details>
   <summary>1. Prepare Raspberry PI</summary>
-
 a. Flash the PI OS like Raspberry Pi OS Lite (32bit) using Rufus or Raspberry Pi Imager
 - image example for RPI ZERO W is `2023-05-03-raspios-bullseye-armhf-lite.img`
 
@@ -187,9 +186,34 @@ Content of `database.json` file is following:
 }       
 ```
 
-## Update Container configuration
+## Docker start-up
 
-Optionally edit and update `docker-compose.yaml` file based on your needs. Minimal config of docker-compose.yaml file is following:
+Run command to start the docker instance for `docker run`
+```
+docker run -d \
+--name presence \
+--privileged \
+--net=host \
+--restart=always \
+-e HOST=192.168.5.76 \
+-e PORT=1883 \
+-e USER=login \
+-e PASSWORD=password \
+-e LOCATION=roomA \
+-e LOGGING=DEBUG \
+-e DBASE=http://192.168.5.76:8019/presence/database.json \
+-v /etc/localtime:/etc/localtime:ro \
+salvq/presence:2.3.0
+```
+
+Optionally navigate to folder with downloaded repository and run command to start the docker instance for `docker-compose.yaml`
+```
+pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
+pi@raspberrypi:~ $ docker-compose up -d
+```
+
+Content of `docker-compose.yaml`
+
 ```
 version: '3'
 
@@ -212,7 +236,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
 ```
 
+### Container configuration details
 
+Optionally edit and update `docker-compose.yaml` file based on your needs. Minimal config of docker-compose.yaml file is following:
 
 | Name         | Environment | Default | Description                                                                      |
 | ------------ | ----------- | ------- | -------------------------------------------------------------------------------- |
@@ -231,35 +257,6 @@ services:
 | SLEEPBETWEEN | OPTIONAL    | 5       | Waiting time between two scans in seconds (improve wi-fi / bluetooth coesistence)                       |
 | LOGGING      | OPTIONAL    | INFO    | When it is needed to increase verbose and debug (possible value INFO or DEBUG) |
 
-
-
-## Docker start-up
-
-Navigate to folder with downloaded repository
-```
-pi@raspberrypi:~ $ cd /home/pi/presence/presence-detection
-```
-Run command to start the docker instance for `docker run`
-```
-docker run -d \
---name presence \
---privileged \
---net=host \
---restart=always \
--e HOST=192.168.5.76 \
--e PORT=1883 \
--e USER=login \
--e PASSWORD=password \
--e LOCATION=roomA \
--e LOGGING=DEBUG \
--e DBASE=http://192.168.5.76:8019/presence/database.json \
--v /etc/localtime:/etc/localtime:ro \
-salvq/presence:2.3.0
-```
-Optionally run command to start the docker instance for `docker-compose`
-```
-pi@raspberrypi:~ $ docker-compose up -d
-```
 
 
 ## Home Assistant integration (recommended)
