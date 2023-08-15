@@ -76,10 +76,14 @@ c. Enable docker when system bootup
 pi@raspberrypi:~ $ sudo systemctl enable docker
 ```
 
-d. Optionally install Docker compose if you intend to use ```docker-compose up``` instead of ```docker run```
+d. Install python3
+```
+pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
+```
+
+e. Optionally install Docker compose if you intend to use ```docker-compose up``` instead of ```docker run```
 ```
 pi@raspberrypi:~ $ sudo apt-get install libffi-dev libssl-dev
-pi@raspberrypi:~ $ sudo apt-get install -y python3 python3-pip
 pi@raspberrypi:~ $ sudo apt-get install -y python3-bcrypt
 pi@raspberrypi:~ $ sudo pip3 install docker-compose
 ```
