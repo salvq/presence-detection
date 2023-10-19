@@ -10,6 +10,16 @@ Docker image is available on https://hub.docker.com/r/salvq/presence
 
 Note: Using Home Assistant is not must but very recommended. More details information for using without Home Assistant are available in General usage section.
 
+## Change log
+
+Docker image 2.4.0
+- adjusted Last Will and Testament message, first message published after successful connection to broker
+- update to arm32v5/python:3.10-buster base image
+- syntax updates
+
+Docker image 2.3.0
+- initial version
+
 ## Supported Platforms
 
 * linux/arm/v5 and up
