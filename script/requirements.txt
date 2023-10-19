@@ -1,2 +1,2 @@
 paho-mqtt==1.6.1
-pybluez==0.23
+git+https://github.com/pybluez/pybluez.git#egg=pybluez
