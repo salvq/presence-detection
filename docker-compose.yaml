@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  presence:
+    image: salvq/presence:2.3.0
+    container_name: presence
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    environment:
+      - HOST=192.168.10.101
+      - PORT=1883
+      - USER=user1
+      - PASSWORD=pass2
+      - LOCATION=myroom
+      - LOGGING=DEBUG
+      - DBASE=http://192.168.10.102:8000/presence/database.json
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
