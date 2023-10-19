@@ -1,4 +1,4 @@
-FROM arm32v5/python:3.7-buster
+FROM arm32v5/python:3.10-buster
 
 ADD script /script
 WORKDIR /script
