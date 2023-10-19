@@ -56,6 +56,7 @@ logger.addHandler(syslog_handler)
 clean_session = os.environ.get('CLEANSESSION', False)
 will_qos = os.environ.get('WILLQOS', 1)
 will_retain = os.environ.get('WILLRETAIN', True)
+subs_qos = os.environ.get('SUBSQOS', 1)
 msg_qos = os.environ.get('MSGQOS', 1)
 msg_retain = os.environ.get('MSGRETAIN', True)
 will_topic = 'presence/'+hex_mac_address+'/'+location+'/lwt'
@@ -80,39 +81,34 @@ def on_log(client, userdata, level, buf):
     logger.debug(f'on_log: {buf}')
 
 def on_connect(client, userdata, flags, rc):
-    if rc == 0:
-        logger.info(f'Server connected to broker, rc code: {rc}')
-        for name in database["devices"]:
-            unique_id = name["name"] + '_' + hex_mac_address
-            sensor_name = name["name"] + ' ' + location
-            state_topic = 'presence/'+hex_mac_address+'/'+location+'/'+name["name"]
-            config_topic = 'homeassistant/device_tracker/'+unique_id+'/presence/config'
-            print(state_topic)
-            print(config_topic)
-            data_set = {
-              "device": {
-                "identifiers": [
-                  hex_mac_address
-                ],
-                "manufacturer": mfg,
-                "model": full_model,
-                "name": hex_mac_address
-              },
-              "name": sensor_name,
-              "unique_id": unique_id,
-              "state_topic": state_topic,
-              "availability_topic": will_topic,
-              "payload_available": 'online',
-              "payload_not_available": 'offline'
-            }
-            print(json.dumps(data_set))
-            new_payload = json.dumps(data_set)
-            client.publish(config_topic, payload=new_payload, qos=msg_qos, retain=msg_retain)
-
-        client.publish(will_topic, 'online', will_qos, will_retain)
-        client.subscribe(subscribed_topic, 0)
-    else:
-        logger.info(f'Server connection broker failed, rc code: {rc}')
+    logger.info(f'Server connected to broker, rc code: {rc}')
+    client.publish(will_topic, 'online', will_qos, will_retain)
+    client.subscribe(subscribed_topic, subs_qos)
+    for name in database["devices"]:
+        unique_id = name["name"] + '_' + hex_mac_address
+        sensor_name = name["name"] + ' ' + location
+        state_topic = 'presence/'+hex_mac_address+'/'+location+'/'+name["name"]
+        config_topic = 'homeassistant/device_tracker/'+unique_id+'/presence/config'
+        print(state_topic)
+        print(config_topic)
+        data_set = {
+          "device": {
+            "identifiers": [
+              hex_mac_address
+            ],
+            "manufacturer": mfg,
+            "model": full_model,
+            "name": hex_mac_address
+          },
+          "name": sensor_name,
+          "unique_id": unique_id,
+          "state_topic": state_topic,
+          "availability_topic": will_topic,
+          "payload_available": 'online',
+          "payload_not_available": 'offline'
+        }
+        config_payload = json.dumps(data_set)
+        client.publish(config_topic, payload=config_payload, qos=msg_qos, retain=msg_retain)
 
 def on_disconnect(client, userdata, rc):
     logger.info(f'Server disconnected from broker, rc code: {rc}')
